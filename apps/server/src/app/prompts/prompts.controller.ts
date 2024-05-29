@@ -19,6 +19,8 @@ import {CreatePromptVersionWithUserDto} from "./dto/create-prompt-version-with-u
 import {UsersService} from "../identity/users.service";
 import {PromptType} from "../../@generated/prisma/prompt-type.enum";
 import {PromptService} from "@pezzo/types";
+import {CreatePromptDto} from "./dto/create-prompt.dto";
+import {ProjectsService} from "../identity/projects.service";
 
 @UseGuards(ApiKeyAuthGuard)
 @ApiTags("Prompts")
@@ -34,6 +36,7 @@ export class PromptsController {
     private promptsService: PromptsService,
     private analytics: AnalyticsService,
     private usersService: UsersService,
+    private projectsService: ProjectsService,
   ) {}
 
   // @Get("/deployment")
@@ -312,6 +315,57 @@ export class PromptsController {
       this.logger.error({ error }, "Error getting specific project all prompts");
       throw new InternalServerErrorException();
     }
+  }
+
+  @Post("/prompt")
+  @ApiOperation({ summary: "Create Prompt" })
+  @ApiResponse({
+    status: 200,
+    description: "Create prompt successfully",
+  })
+  @ApiResponse({
+    status: 404,
+    description:
+      "Not found for the specific project Id",
+  })
+  @ApiResponse({ status: 500, description: "Internal server error" })
+  async createPrompt(
+    @Body() dto: CreatePromptDto,
+  ) {
+    this.logger
+      .assign({
+        promptName: dto.name,
+        projectId: dto.projectId,
+      })
+      .info("Creating prompt");
+
+    // check if project exist
+    let project;
+    try {
+      project = this.projectsService.getProjectById(dto.projectId);
+    } catch (error) {
+      this.logger.error({ error }, "Error getting existing project");
+      throw new InternalServerErrorException();
+    }
+    if (!project) {
+      throw new NotFoundException();
+    }
+
+    let prompt: Prompt;
+
+    try {
+      prompt = await this.promptsService.createPrompt(dto);
+    } catch (error) {
+      this.logger.error({ error }, "Error creating prompt");
+      throw new InternalServerErrorException();
+    }
+
+    this.analytics.trackEvent("prompt_created", {
+      promptId: prompt.id,
+      projectId: dto.projectId,
+    });
+
+    return prompt;
   }
 
   @Post("/promptVersion")
