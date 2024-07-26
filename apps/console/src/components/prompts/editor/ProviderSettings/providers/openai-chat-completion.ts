@@ -12,8 +12,8 @@ type OpenAIProviderSettings = Omit<
 >;
 
 const defaultSettings: OpenAIProviderSettings = {
-  model: "gpt-4o",
-  temperature: 0.0,
+  model: "gpt-4o-mini",
+  temperature: 0.7,
   max_tokens: 256,
   // top_p: 1,
   // frequency_penalty: 0,
@@ -21,9 +21,9 @@ const defaultSettings: OpenAIProviderSettings = {
 };
 
 const latestModels = [
+  "gpt-4o-mini",
   "gpt-3.5-turbo",
   "gpt-4-turbo",
-  "gpt-4o-mini",
   "gpt-4o",
   "claude-3-haiku-20240307-bedrock",
   "claude-3-sonnet-20240229-bedrock",
