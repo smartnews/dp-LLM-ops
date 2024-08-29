@@ -23,7 +23,7 @@ export class GaiPlatform {
 
   constructor(options: GaiClientOptions) {
     this.options = {
-      serverUrl: defaultOptions.serverUrl,
+      serverUrl: process.env["NX_GAI_PLATFORM_URL"] || defaultOptions.serverUrl,
       apiKey: options.apiKey || process.env["PEZZO_API_KEY"],
       projectId: options.projectId || process.env["PEZZO_PROJECT_ID"],
       environment: options.environment || process.env["PEZZO_ENVIRONMENT"],
@@ -80,12 +80,12 @@ export class GaiPlatform {
       body: JSON.stringify(
         {
           model: dto.model,
-          // project: "llm-ops",
           project: "ai_infra_dev",
           system_hint: dto.system_hint,
           prompt: covert_prompt,
           temperature: dto.temperature,
           max_tokens: dto.max_tokens,
+          extra: dto.extra
         }
       ),
     });
@@ -101,7 +101,7 @@ export class GaiPlatform {
         throw new Error(data.message);
       } else {
         throw new Error(
-          `Error fetching prompt completion for environment "${this.options.environment}" (${data.statusCode}).`
+          `Error fetching prompt completion. Response from GAI Platform = ${JSON.stringify(data)}`
         );
       }
     }
