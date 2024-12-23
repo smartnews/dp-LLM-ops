@@ -21,18 +21,24 @@ spec:
       containers:
         - env:
             - name: CLICKHOUSE_HOST
-              value: clickhouse.dev.smartnews.com
+              valueFrom:
+                secretKeyRef:
+                  name: llm-ops-server-cluster-main
+                  key: CLICKHOUSE_HOST
             - name: CLICKHOUSE_PORT
-              value: "8123"
+              valueFrom:
+                secretKeyRef:
+                  name: llm-ops-server-cluster-main
+                  key: CLICKHOUSE_PORT
             - name: CLICKHOUSE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: llm-ops-secret
+                  name: llm-ops-server-cluster-main
                   key: CLICKHOUSE_PASSWORD
             - name: CLICKHOUSE_USER
               valueFrom:
                 secretKeyRef:
-                  name: llm-ops-secret
+                  name: llm-ops-server-cluster-main
                   key: CLICKHOUSE_USER
             - name: CLICKHOUSE_PROTOCOL
               value: "http"
