@@ -33,7 +33,7 @@ export class ClickHouseService implements OnModuleInit {
     const database = "default";
 
     this.logger.info("Creating ClickHouse client");
-    this.logger.info({ host, port, username, password, protocol, database });
+    this.logger.info({ host, port, username, protocol, database });
 
     this.client = createClient({
       host: `${protocol}://${host}:${port}`,
