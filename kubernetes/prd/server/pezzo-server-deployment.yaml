@@ -21,10 +21,10 @@ spec:
       containers:
         - env:
             - name: CLICKHOUSE_HOST
-            valueFrom:
-              secretKeyRef:
-                name: llm-ops-server-cluster-main
-                key: CLICKHOUSE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: llm-ops-server-cluster-main
+                  key: CLICKHOUSE_HOST
             - name: CLICKHOUSE_PORT
               valueFrom:
                 secretKeyRef:
