@@ -20,14 +20,26 @@ spec:
     spec:
       containers:
         - env:
-            - name: CLICKHOUSE_HOST
-              value: smartnews-ops-0038ca8724e37848.elb.ap-northeast-1.amazonaws.com
+             - name: CLICKHOUSE_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: llm-ops-server-cluster-main
+                  key: CLICKHOUSE_HOST
             - name: CLICKHOUSE_PORT
-              value: "8123"
+              valueFrom:
+                secretKeyRef:
+                  name: llm-ops-server-cluster-main
+                  key: CLICKHOUSE_PORT
             - name: CLICKHOUSE_PASSWORD
-              value: FyaNO3kQRJNUU5bl
+              valueFrom:
+                secretKeyRef:
+                  name: llm-ops-server-cluster-main
+                  key: CLICKHOUSE_PASSWORD
             - name: CLICKHOUSE_USER
-              value: llm_ops_sa
+              valueFrom:
+                secretKeyRef:
+                  name: llm-ops-server-cluster-main
+                  key: CLICKHOUSE_USER
             - name: CLICKHOUSE_PROTOCOL
               value: "http"
             - name: CLICKHOUSE_DATABASE

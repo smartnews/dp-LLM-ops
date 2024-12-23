@@ -3,6 +3,7 @@ namespace: realtime-streaming
 resources:
   - ../../base/server
   - ./-env-local-configmap.yaml
+  - ./external-secret.yaml
 
 patchesStrategicMerge:
   - pezzo-server-deployment.yaml
