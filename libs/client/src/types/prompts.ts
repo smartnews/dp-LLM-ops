@@ -71,6 +71,7 @@ export interface GetPromptCompletionInput {
   max_tokens: number;
   variables: Record<string, boolean | number | string>;
   extra: object;
+  function_calls: object;
 }
 
 export interface GetPromptCompletionResult {

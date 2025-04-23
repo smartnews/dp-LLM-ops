@@ -107,7 +107,8 @@ export class PromptTesterService {
           temperature: testData.settings.temperature,
           max_tokens: testData.settings.max_tokens,
           variables: testData.variables,
-          extra: testData.content.messages[0].extra
+          extra: testData.content.messages[0].extra,
+          function_calls: testData.content.messages[0].function_calls,
         }
       );
     } catch (err) {
@@ -143,7 +144,8 @@ export class PromptTesterService {
         variables: testData.variables,
         temperature: testData.settings.temperature,
         max_tokens: testData.settings.max_tokens,
-        extra: testData.content.messages[0].extra
+        extra: testData.content.messages[0].extra,
+        function_calls: testData.content.messages[0].function_calls,
       }
     );
 

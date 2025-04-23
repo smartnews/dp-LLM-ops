@@ -84,6 +84,7 @@ export interface TestPromptRequestMessage {
   role: string;
   content: string;
   extra: object;
+  function_calls: object;
 }
 
 export interface TestPromptRequestContent {

@@ -80,6 +80,28 @@ export const PromptEditMode = () => {
           )}
         ></FormField>
       </Card>
+      <Card className="p-4">
+      <div className="flex flex-col space-y-1.5 border-b border-muted p-2 font-semibold">Functions</div>
+        <FormField
+          control={form.control}
+          name="content.messages.0.function_calls"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <Textarea
+                  className="border-none"
+                  placeholder="Enable models to fetch data and take actions."
+                  autoCorrect="off"
+                  disableAutoComplete
+                  rows={8}
+                  {...field}
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        ></FormField>        
+      </Card>
     </div>
   );
 };

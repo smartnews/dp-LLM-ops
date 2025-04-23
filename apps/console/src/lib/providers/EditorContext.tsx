@@ -117,12 +117,14 @@ export const EditorProvider = ({ children }) => {
     if (type === PromptType.Chat) {
       const promptContent = form.getValues("content.prompt");
       const promptExtra = form.getValues("content.messages.0.extra");
+      const promptFunctionCalls = form.getValues("content.messages.0.function_calls");
       content = {
         messages: [
           {
             role: "user",
             content: promptContent ?? "",
             extra: promptExtra ?? "",
+            function_calls: promptFunctionCalls ?? "",
           },
         ],
       };

@@ -100,7 +100,8 @@ export class ReportingService {
       system_hint: any
       temperature: number
       max_tokens: number
-      extra: any
+      extra: any,
+      function_calls: any
     }
   ): Promise<SerializedReport> {
     const reportId = randomUUID();
@@ -113,7 +114,8 @@ export class ReportingService {
           {
             content: request.system_hint,
             role: "user",
-            extra: request.extra
+            extra: request.extra,
+            function_calls: request.function_calls
           }
         ],
         model: request.model,

@@ -85,7 +85,8 @@ export class GaiPlatform {
           prompt: covert_prompt,
           temperature: dto.temperature,
           max_tokens: dto.max_tokens,
-          extra: dto.extra
+          extra: dto.extra,
+          function_calls: dto.function_calls
         }
       ),
     });
